@@ -54,6 +54,16 @@ def update_task(id):
     task.completed = data.get('completed', task.completed)
     return jsonify({"message": "Tarefa atualizada com sucesso!"})
 
+@app.route('/tasks/<int:id>', methods=['DELETE'])
+def delete_task(id):
+    for task in tasks:
+        if task.id == id:
+            tasks.remove(task)
+            return jsonify({"message": "Tarefa deletada com sucesso!"})
+        
+    return jsonify({"message": "Não foi possível encontrar a atividade!"}), 404
+    
+
 # executando de forma manual para desenvolvimento
 if __name__ == "__main__":
     app.run(debug=True) 
